@@ -1,7 +1,8 @@
-import { db } from "@/db";
 import { eq } from "drizzle-orm";
 
+import { db } from "@/db";
 import { meetTimesTable } from "@/db/schema";
+
 import When2MeetTable from "./When2MeetTable";
 
 type When2MeetProp = {
@@ -10,12 +11,23 @@ type When2MeetProp = {
   startTime: string;
   endTime: string;
   readonly: boolean;
-}
+};
 
-export default async function When2Meet({ eventId, handle, readonly, startTime, endTime }: When2MeetProp) {
-  const n = 48, m = 8;
+export default async function When2Meet({
+  eventId,
+  handle,
+  readonly,
+  startTime,
+  endTime,
+}: When2MeetProp) {
+  const n = 48,
+    m = 8;
   const meetTimes = await db
-    .select({ handle: meetTimesTable.handle, rowId: meetTimesTable.rowId, colId: meetTimesTable.colId })
+    .select({
+      handle: meetTimesTable.handle,
+      rowId: meetTimesTable.rowId,
+      colId: meetTimesTable.colId,
+    })
     .from(meetTimesTable)
     .where(eq(meetTimesTable.eventId, eventId))
     .execute();
@@ -31,13 +43,13 @@ export default async function When2Meet({ eventId, handle, readonly, startTime, 
   meetTimes.map((meetTime) => {
     const { rowId, colId } = meetTime;
     attendeeNum[rowId][colId]++;
-    if (meetTime.handle == handle)
-      userAttend[rowId][colId] = true;
-  })
+    if (meetTime.handle == handle) userAttend[rowId][colId] = true;
+  });
 
   const startDate = new Date(startTime.substring(0, 10));
   const endDate = new Date(endTime.substring(0, 10));
-  const dayCount = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000) + 1;
+  const dayCount =
+    (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000) + 1;
   const startHour = parseInt(startTime.substring(11, 13));
   const endHour = parseInt(endTime.substring(11, 13));
   return (

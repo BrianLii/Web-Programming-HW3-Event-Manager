@@ -25,21 +25,18 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
-  const { title, startTime, endTime} = data as PostEventRequest;
+  const { title, startTime, endTime } = data as PostEventRequest;
   try {
-    const [{id}] = await db
+    const [{ id }] = await db
       .insert(eventsTable)
       .values({
         title,
         startTime,
         endTime,
       })
-      .returning({id: eventsTable.id})
+      .returning({ id: eventsTable.id })
       .execute();
-    return NextResponse.json(
-      { id: id },
-      { status: 200 },
-    );
+    return NextResponse.json({ id: id }, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

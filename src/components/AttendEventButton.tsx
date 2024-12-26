@@ -6,21 +6,26 @@ import useAttend from "@/hooks/useAttend";
 type AttendEventButtonProp = {
   eventId: number;
   handle: string;
-}
+};
 
-export default function AttendEventButton({ eventId, handle }: AttendEventButtonProp) {
+export default function AttendEventButton({
+  eventId,
+  handle,
+}: AttendEventButtonProp) {
   const { attendEvent, loading } = useAttend();
   const handleAttend = () => {
-    attendEvent({ eventId: eventId, handle: handle })
-  }
+    attendEvent({ eventId: eventId, handle: handle });
+  };
   return (
     <>
       <Button
-        className="text-gray-700 w-15 h-auto text-xl rounded-lg"
+        className="w-15 h-auto rounded-lg text-xl text-gray-700"
         variant="outline"
         onClick={handleAttend}
         disabled={loading}
-      >我要參加</Button>
+      >
+        我要參加
+      </Button>
     </>
   );
 }

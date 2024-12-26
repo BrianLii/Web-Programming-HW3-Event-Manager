@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 
-
 // import global styles for tailwind to work
 import "./globals.css";
 
@@ -41,9 +40,7 @@ export default function RootLayout({
     <html lang="en">
       {/* this applies the font to the whole page */}
       <body className={noto.className}>
-          <div className="mx-auto min-h-screen max-w-6xl">
-            {children}
-          </div>
+        <div className="mx-auto min-h-screen max-w-6xl">{children}</div>
       </body>
     </html>
   );

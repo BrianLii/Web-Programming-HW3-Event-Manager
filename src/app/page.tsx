@@ -1,10 +1,10 @@
-
 import EventDigest from "@/components/EventDigest";
 import NewEventButton from "@/components/NewEventButton";
 import SearchInput from "@/components/SearchInput";
 import UserInfoHeader from "@/components/UserInfoHeader";
 import { db } from "@/db";
 import { eventsTable, usersTable } from "@/db/schema";
+
 type HomePageProps = {
   searchParams: {
     handle?: string;
@@ -38,7 +38,7 @@ export default async function Home({
   const events = await db
     .select({
       id: eventsTable.id,
-      title: eventsTable.title
+      title: eventsTable.title,
     })
     .from(eventsTable)
     .execute();
@@ -47,19 +47,18 @@ export default async function Home({
     <>
       <div className="h-screen w-full overflow-scroll">
         <UserInfoHeader />
-        <div className="w-full flex mb-2">
+        <div className="mb-2 flex w-full">
           <SearchInput />
           <NewEventButton />
         </div>
         <div className="flex flex-col gap-2">
-          {events.map((event) => (
-            event.title.includes(searchString ?? "") ?
-              <EventDigest
-                key={event.id}
-                id={event.id}
-                handle={handle}
-              /> : <></>
-          ))}
+          {events.map((event) =>
+            event.title.includes(searchString ?? "") ? (
+              <EventDigest key={event.id} id={event.id} handle={handle} />
+            ) : (
+              <></>
+            ),
+          )}
         </div>
       </div>
     </>

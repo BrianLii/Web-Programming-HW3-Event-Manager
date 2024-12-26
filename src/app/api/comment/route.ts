@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { z } from "zod";
+
 import { db } from "@/db";
 import { commentsTable } from "@/db/schema";
 
@@ -19,7 +20,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, content } = data as CommentOnEventRequest;
-  return db.insert(commentsTable)
+  return db
+    .insert(commentsTable)
     .values({
       eventId: eventId,
       handle: handle,
@@ -34,4 +36,3 @@ export async function POST(request: NextRequest) {
       );
     });
 }
-

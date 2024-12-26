@@ -6,22 +6,27 @@ import useAttend from "@/hooks/useAttend";
 type LeaveEventButtonProp = {
   eventId: number;
   handle: string;
-}
+};
 
-export default function LeaveEventButton({ eventId, handle }: LeaveEventButtonProp) {
+export default function LeaveEventButton({
+  eventId,
+  handle,
+}: LeaveEventButtonProp) {
   const { leaveEvent, loading } = useAttend();
   const handleLeave = () => {
-    leaveEvent({ eventId: eventId, handle: handle })
-  }
+    leaveEvent({ eventId: eventId, handle: handle });
+  };
 
   return (
     <>
       <Button
-        className="bg-lime-500 hover:bg-lime-600 text-stone-900 rounded-lg w-15 h-auto text-xl"
+        className="w-15 h-auto rounded-lg bg-lime-500 text-xl text-stone-900 hover:bg-lime-600"
         variant="outline"
         onClick={handleLeave}
         disabled={loading}
-      >我已參加</Button>
+      >
+        我已參加
+      </Button>
     </>
   );
 }

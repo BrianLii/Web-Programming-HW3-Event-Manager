@@ -11,18 +11,18 @@ type When2MeetCellProp = {
   attedneeNum: number;
   readonly: boolean;
   highlight: boolean;
-}
+};
 
 export default function When2MeetCell({
   eventId,
   handle,
-  rowId, colId,
+  rowId,
+  colId,
   userAttend,
   attedneeNum,
   readonly,
   highlight,
 }: When2MeetCellProp) {
-
   const { addMeetTime, removeMeetTime } = useMeetTime();
   const handleCellClick = () => {
     if (readonly) return;
@@ -37,16 +37,12 @@ export default function When2MeetCell({
     "bg-green-700",
     "bg-green-800",
     "bg-green-900",
-  ]
+  ];
 
   return (
     <td
-      className={
-        `h-4 w-20
-        ${highlight ? "border-pink-700 border-4" : "border-transparent border-4"} border-solid
-        ${bgcolorList[Math.min(attedneeNum, bgcolorList.length - 1)]}`}
-      onClick={() => handleCellClick()}>
-    </td>
+      className={`h-4 w-20 ${highlight ? "border-4 border-pink-700" : "border-4 border-transparent"} border-solid ${bgcolorList[Math.min(attedneeNum, bgcolorList.length - 1)]}`}
+      onClick={() => handleCellClick()}
+    ></td>
   );
-
 }

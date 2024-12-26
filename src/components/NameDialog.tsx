@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -18,12 +19,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn, validateHandle } from "@/lib/utils";
-import type { Dispatch, SetStateAction } from "react";
+
 type NameDialogProps = {
   dialogOpen: boolean;
   setDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
-export default function NameDialog({ dialogOpen, setDialogOpen }: NameDialogProps) {
+export default function NameDialog({
+  dialogOpen,
+  setDialogOpen,
+}: NameDialogProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -79,7 +83,8 @@ export default function NameDialog({ dialogOpen, setDialogOpen }: NameDialogProp
             </div>
             {handleError && (
               <p className="col-span-3 col-start-2 text-xs text-red-500">
-                Invalid handle. It must not be empty and should not exceed 50 characters in length.
+                Invalid handle. It must not be empty and should not exceed 50
+                characters in length.
               </p>
             )}
           </div>

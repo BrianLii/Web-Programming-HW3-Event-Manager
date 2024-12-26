@@ -1,9 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
+
 import { db } from "@/db";
 import { meetTimesTable } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
 
 // zod is a library that helps us valiTime data at runtime
 // it's useful for validating data coming from the client,
@@ -27,7 +28,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, rowId, colId } = data as meetTimeRequest;
-  return db.insert(meetTimesTable)
+  return db
+    .insert(meetTimesTable)
     .values({ eventId, handle, rowId, colId })
     .onConflictDoNothing()
     .then(() => new NextResponse("OK", { status: 200 }))
@@ -48,14 +50,16 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, rowId, colId } = data as meetTimeRequest;
-  return db.delete(meetTimesTable)
+  return db
+    .delete(meetTimesTable)
     .where(
       and(
         eq(meetTimesTable.eventId, eventId),
         eq(meetTimesTable.handle, handle),
         eq(meetTimesTable.rowId, rowId),
         eq(meetTimesTable.colId, colId),
-      ))
+      ),
+    )
     .execute()
     .then(() => new NextResponse("OK", { status: 200 }))
     .catch((error) => {

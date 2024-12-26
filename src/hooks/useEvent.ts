@@ -1,5 +1,6 @@
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 export default function useEvent() {
   const router = useRouter();
@@ -8,7 +9,7 @@ export default function useEvent() {
     title,
     startTime,
     endTime,
-  } : {
+  }: {
     title: string;
     startTime: string;
     endTime: string;
@@ -29,7 +30,7 @@ export default function useEvent() {
     router.refresh();
     setLoading(false);
     return res.json();
-  }
+  };
   return {
     postEvent,
     loading,

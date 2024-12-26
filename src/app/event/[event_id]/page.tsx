@@ -27,15 +27,11 @@ type EventPageProps = {
 export default async function eventPage(props: EventPageProps) {
   const searchParams = await props.searchParams;
 
-  const {
-    handle
-  } = searchParams;
+  const { handle } = searchParams;
 
   const params = await props.params;
 
-  const {
-    event_id
-  } = params;
+  const { event_id } = params;
 
   const errorRedirect = () => {
     const params = new URLSearchParams();

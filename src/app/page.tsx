@@ -23,10 +23,7 @@ type HomePageProps = {
 export default async function Home(props: HomePageProps) {
   const searchParams = await props.searchParams;
 
-  const {
-    handle,
-    searchString
-  } = searchParams;
+  const { handle, searchString } = searchParams;
 
   // read the  handle from the query params and insert the user
   // if needed.

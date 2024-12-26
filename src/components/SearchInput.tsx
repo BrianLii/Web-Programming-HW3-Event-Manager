@@ -14,7 +14,7 @@ export default function SearchInput() {
     <>
       <Input placeholder="搜尋想參加的活動 (按 Enter 以送出)" className="mr-2" ref={inputRef} onKeyDown={(e) => {
         if (e.key == "Enter" && inputRef.current) {
-          const params = new URLSearchParams(searchParams);
+          const params = new URLSearchParams(Array.from(searchParams.entries()));
           params.set("searchString", inputRef.current?.value);
           router.push(`${pathname}?${params.toString()}`)
         }

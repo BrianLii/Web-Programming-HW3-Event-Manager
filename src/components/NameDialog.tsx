@@ -43,7 +43,7 @@ export default function NameDialog({ dialogOpen, setDialogOpen }: NameDialogProp
     setHandleError(newHandleError);
     if (newHandleError) return false;
 
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
     params.set("handle", handle!);
     router.push(`${pathname}?${params.toString()}`);
     setDialogOpen(false);

@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 // generate a random avatar for a user
 export function getAvatar(username?: string | null) {
   faker.seed(username ? getSeed(username) : 42069);
-  return faker.internet.avatar();
+  return faker.image.avatar();
 }
 
 // convert username to a number for consistent seeding

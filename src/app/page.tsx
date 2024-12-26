@@ -6,10 +6,10 @@ import { db } from "@/db";
 import { eventsTable, usersTable } from "@/db/schema";
 
 type HomePageProps = {
-  searchParams: {
+  searchParams: Promise<{
     handle?: string;
     searchString?: string;
-  };
+  }>;
 };
 
 // Since this is a server component, we can do some server side processing
@@ -20,9 +20,14 @@ type HomePageProps = {
 // the shadow dom and state update logic. We can use react to render anything,
 // any where. There are already libraries that use react to render to the terminal,
 // email, PDFs, native mobile apps, 3D objects and even videos.
-export default async function Home({
-  searchParams: { handle, searchString },
-}: HomePageProps) {
+export default async function Home(props: HomePageProps) {
+  const searchParams = await props.searchParams;
+
+  const {
+    handle,
+    searchString
+  } = searchParams;
+
   // read the  handle from the query params and insert the user
   // if needed.
   if (handle) {

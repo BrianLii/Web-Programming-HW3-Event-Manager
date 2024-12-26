@@ -14,20 +14,29 @@ import { db } from "@/db";
 import { attendeesTable, commentsTable, eventsTable } from "@/db/schema";
 
 type EventPageProps = {
-  params: {
+  params: Promise<{
     event_id: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     username: string;
     handle: string;
-  };
+  }>;
 };
 
 // these two fields are always available in the props object of a page component
-export default async function eventPage({
-  params: { event_id },
-  searchParams: { handle },
-}: EventPageProps) {
+export default async function eventPage(props: EventPageProps) {
+  const searchParams = await props.searchParams;
+
+  const {
+    handle
+  } = searchParams;
+
+  const params = await props.params;
+
+  const {
+    event_id
+  } = params;
+
   const errorRedirect = () => {
     const params = new URLSearchParams();
     if (handle) {

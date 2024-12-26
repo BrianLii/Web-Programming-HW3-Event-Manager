@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "drizzle-kit push:pg"
+    "migrate": "drizzle-kit push:pg",
+    "format": "prettier --write src"
   },
   "dependencies": {
     "@faker-js/faker": "^9.3.0",

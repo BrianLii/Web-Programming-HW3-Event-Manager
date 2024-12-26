@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   const data = await request.json();
   try {
     meetTimeSchema.parse(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, rowId, colId } = data as meetTimeRequest;
@@ -44,7 +44,7 @@ export async function DELETE(request: NextRequest) {
   const data = await request.json();
   try {
     meetTimeSchema.parse(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, rowId, colId } = data as meetTimeRequest;

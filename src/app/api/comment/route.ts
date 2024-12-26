@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const data = await request.json();
   try {
     commentOnEventSchema.parse(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   const { eventId, handle, content } = data as CommentOnEventRequest;

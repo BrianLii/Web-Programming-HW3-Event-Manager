@@ -54,7 +54,7 @@ export default function NameDialog({ dialogOpen, setDialogOpen }: NameDialogProp
     if (open) {
       setDialogOpen(true);
     } else {
-      handleSave() && setDialogOpen(false);
+      if (handleSave()) setDialogOpen(false);
     }
   };
 

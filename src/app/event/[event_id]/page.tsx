@@ -35,7 +35,7 @@ export default async function eventPage({
 }: EventPageProps) {
   const errorRedirect = () => {
     const params = new URLSearchParams();
-    handle && params.set("handle", handle);
+    if (handle) {params.set("handle", handle)};
     redirect(`/?${params.toString()}`);
   };
 

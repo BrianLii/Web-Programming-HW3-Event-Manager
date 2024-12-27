@@ -125,8 +125,8 @@ export const tweetsTable = pgTable(
     createdAt: timestamp("created_at").default(sql`now()`),
   },
   (table) => ({
-    tweet_userHandleIndex: index("user_handle_index").on(table.userHandle),
-    tweet_createdAtIndex: index("created_at_index").on(table.createdAt),
+    userHandleIndex: index("tweet_user_handle_index").on(table.userHandle),
+    createdAtIndex: index("tweet_created_at_index").on(table.createdAt),
     // we can even set composite indexes, which are indexes on multiple columns
     // learn more about composite indexes here:
     // https://planetscale.com/learn/courses/mysql-for-developers/indexes/composite-indexes

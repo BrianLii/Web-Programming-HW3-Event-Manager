@@ -38,7 +38,8 @@ export const usersTable = pgTable(
   }),
 );
 
-export const eventsTable = pgTable("events", {
+export const eventsTable = pgTable(
+  "events", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 280 }).notNull(),
   startTime: varchar("start_time").notNull(),
@@ -49,7 +50,7 @@ export const attendeesTable = pgTable(
   "attendee",
   {
     id: serial("id").primaryKey(),
-    eventId: integer("event_id").references(() => eventsTable.id, {
+    eventId: integer("event_id").notNull().references(() => eventsTable.id, {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
@@ -65,7 +66,8 @@ export const attendeesTable = pgTable(
   }),
 );
 
-export const commentsTable = pgTable("comments", {
+export const commentsTable = pgTable(
+  "comments", {
   id: serial("id").primaryKey(),
   content: varchar("content").notNull(),
   handle: varchar("handle", { length: 50 })
@@ -74,7 +76,7 @@ export const commentsTable = pgTable("comments", {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
-  eventId: integer("event_id").references(() => eventsTable.id, {
+  eventId: integer("event_id").notNull().references(() => eventsTable.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
@@ -85,7 +87,7 @@ export const meetTimesTable = pgTable(
   "meet_time",
   {
     id: serial("id").primaryKey(),
-    eventId: integer("event_id").references(() => eventsTable.id, {
+    eventId: integer("event_id").notNull().references(() => eventsTable.id, {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
@@ -123,8 +125,8 @@ export const tweetsTable = pgTable(
     createdAt: timestamp("created_at").default(sql`now()`),
   },
   (table) => ({
-    userHandleIndex: index("user_handle_index").on(table.userHandle),
-    createdAtIndex: index("created_at_index").on(table.createdAt),
+    tweet_userHandleIndex: index("user_handle_index").on(table.userHandle),
+    tweet_createdAtIndex: index("created_at_index").on(table.createdAt),
     // we can even set composite indexes, which are indexes on multiple columns
     // learn more about composite indexes here:
     // https://planetscale.com/learn/courses/mysql-for-developers/indexes/composite-indexes

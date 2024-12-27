@@ -38,8 +38,7 @@ export const usersTable = pgTable(
   }),
 );
 
-export const eventsTable = pgTable(
-  "events", {
+export const eventsTable = pgTable("events", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 280 }).notNull(),
   startTime: varchar("start_time").notNull(),
@@ -50,10 +49,12 @@ export const attendeesTable = pgTable(
   "attendee",
   {
     id: serial("id").primaryKey(),
-    eventId: integer("event_id").notNull().references(() => eventsTable.id, {
-      onDelete: "cascade",
-      onUpdate: "cascade",
-    }),
+    eventId: integer("event_id")
+      .notNull()
+      .references(() => eventsTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     handle: varchar("handle", { length: 50 })
       .notNull()
       .references(() => usersTable.handle, {
@@ -66,8 +67,7 @@ export const attendeesTable = pgTable(
   }),
 );
 
-export const commentsTable = pgTable(
-  "comments", {
+export const commentsTable = pgTable("comments", {
   id: serial("id").primaryKey(),
   content: varchar("content").notNull(),
   handle: varchar("handle", { length: 50 })
@@ -76,10 +76,12 @@ export const commentsTable = pgTable(
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
-  eventId: integer("event_id").notNull().references(() => eventsTable.id, {
-    onDelete: "cascade",
-    onUpdate: "cascade",
-  }),
+  eventId: integer("event_id")
+    .notNull()
+    .references(() => eventsTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
   createdAt: timestamp("created_at").default(sql`now()`),
 });
 
@@ -87,10 +89,12 @@ export const meetTimesTable = pgTable(
   "meet_time",
   {
     id: serial("id").primaryKey(),
-    eventId: integer("event_id").notNull().references(() => eventsTable.id, {
-      onDelete: "cascade",
-      onUpdate: "cascade",
-    }),
+    eventId: integer("event_id")
+      .notNull()
+      .references(() => eventsTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     handle: varchar("handle", { length: 50 })
       .notNull()
       .references(() => usersTable.handle, {
